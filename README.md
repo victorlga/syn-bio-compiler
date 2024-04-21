@@ -11,13 +11,13 @@ Not having else was intentional. Else statements make my code ugly.
 ```
 BLOCK = { INLINE_STATEMENT };
 INLINE_STATEMENT = STATEMENT, ".";
-STATEMENT = ( λ | VARDEC | ASSIGNMENT | PRINT | WHILE | IF | STARTUP_FUNCTION );
+STATEMENT = ( λ | VARDEC | ASSIGNMENT | PRINT | WHILE | IF | STARTUP_FUNCTION_CALL );
 VARDEC = "create", ENTITY, "with name", IDENTIFIER, { ",", "it has", TYPE, "of", IDENTIFIER };
 ASSIGNMENT = IDENTIFIER, ( PARAMETER | λ ), "is", BOOL_EXPRESSION;
 PRINT = IDENTIFIER, "shows", ( PARAMETER | BOOL_EXPRESSION );
 WHILE = "while", BOOL_EXPRESSION, ",", STATEMENT, { ",", STATEMENT };
 IF = "if", BOOL_EXPRESSION, ",", STATEMENT, { ",", STATEMENT };
-STARTUP_FUNCTION = IDENTIFIER, (
+STARTUP_FUNCTION_CALL = IDENTIFIER, (
     "hires", IDENTIFIER | 
     "layoffs" |
     "asks", IDENTIFIER, "to raise", NUMBER, ",", IDENTIFIER, ( "not" | λ ), "throws money" |
