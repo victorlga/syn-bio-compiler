@@ -12,7 +12,7 @@ Not having else was intentional. Else statements make my code ugly.
 BLOCK = { INLINE_STATEMENT };
 INLINE_STATEMENT = STATEMENT, ".";
 STATEMENT = ( λ | VARDEC | ASSIGNMENT | PRINT | WHILE | IF | STARTUP_FUNCTION_CALL );
-VARDEC = "create", ENTITY, "with name", IDENTIFIER, { ",", "it has", TYPE, "of", IDENTIFIER };
+VARDEC = "create", ENTITY, "with name", IDENTIFIER, { ",", "it has", TYPE, "of", BOOL_EXPRESSION };
 ASSIGNMENT = IDENTIFIER, ( PARAMETER | λ ), "is", BOOL_EXPRESSION;
 PRINT = IDENTIFIER, "shows", ( PARAMETER | BOOL_EXPRESSION );
 WHILE = "while", BOOL_EXPRESSION, ",", STATEMENT, { ",", STATEMENT };
@@ -30,7 +30,7 @@ RELATIONAL_EXPRESSION = EXPRESSION, { "is", ( "not" | λ ), ( "less than"  | "gr
 EXPRESSION = TERM, { ( "+" | "-" ), TERM };
 TERM = FACTOR, { ( "*" | "/" ), FACTOR };
 FACTOR = ( NUMBER | STRING | IDENTIFIER, ( PARAMETER | λ ) | "(", EXPRESSION, ")" | ( "+" | "-" | "not" ), FACTOR ); 
-ENTITY = ( "startup" | "venture firm" | "worker" );
+ENTITY = ( "startup" | "venture firm" | "worker" | IDENTIFIER );
 PARAMETER = ( STARTUP_PARAMETER | VENTURE_PARAMETER | WORKER_PARAMETER | IDENTIFIER );
 STARTUP_PARAMETER = ( "cash" | "monthly revenue" | "monthly expenses" | "product" );
 VENTURE_PARAMETER = ( "fund" | "portfolio size" | "investment strategy" );
