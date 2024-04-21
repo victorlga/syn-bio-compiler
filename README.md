@@ -22,7 +22,7 @@ STARTUP_FUNCTION = IDENTIFIER, (
     "layoffs" |
     "asks", IDENTIFIER, "to raise", NUMBER, ",", IDENTIFIER, ( "not" | λ ), "throws money" |
     "dies" |
-    PARAMETER, ( "increases" | "decreases" | "is" ), BOOL_EXPRESSION
+    PARAMETER, ( "increases" | "decreases" ), BOOL_EXPRESSION
 );
 BOOL_EXPRESSION = BOOL_TERM, { "or", BOOL_TERM };
 BOOL_TERM = RELATIONAL_EXPRESSION, { "and", RELATIONAL_EXPRESSION };
