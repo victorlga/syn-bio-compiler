@@ -6,7 +6,7 @@ As a parody, I'm going to build a programming language capable of simulating the
 
 ## Design Principles
 1. Absolutly everyone should be able to code and write Zombie Startup Script. Need to feel almost like plain text. Why? Raising venture dollars to burn it all until the end of the year is already stressful enough. No time to learn stupid code sintax, simulating a startup should be pretty straightforward.
-2. WIP
+2. Principles don't raise venture dollars. #1 is enough.
 
 ## Language Grammar Description (EBNF)
 
