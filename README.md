@@ -2,7 +2,11 @@
 
 At the time of writing this, I had a total of one year's professional experience as an intern. I had already seen three layoffs and one company completely shut down its operations in Brazil. These are crazy times for tech dudes.
 
-As a parody, I'm going to build a programming language capable of simulating the finances in the life cycle of a startup. Anyone who can type on a computer can simulate a company's decisions and see if it survives or dies.
+As a parody, I'm going to build a programming language capable of simulating the finances in the life cycle of a startup. Anyone who can type on a computer can simulate a company's decisions (check design principle #1) and see if it survives or dies.
+
+## Design Principles
+1. Absolutly everyone should be able to code and write Zombie Startup Script. Need to feel almost like plain text. Why? Raising venture dollars to burn it all until the end of the year is already stressful enough. No time to learn stupid code sintax, simulating a startup should be pretty straightforward.
+2. WIP
 
 ## Language Grammar Description (EBNF)
 
