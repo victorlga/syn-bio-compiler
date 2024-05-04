@@ -39,7 +39,6 @@ statement:
     | while_statement
     | if_statement
     | function_call
-    | /* empty */
     ;
 
 var_declaration:
@@ -53,7 +52,6 @@ it_has_clauses:
 
 it_has_clause:
     COMMA IT_HAS type OF bool_expression
-    | /* empty */
     ;
 
 assignment:
