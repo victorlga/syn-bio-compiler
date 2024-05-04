@@ -1,6 +1,5 @@
 %{
-#include <stdio.h>
-#include "tokens.h"
+#include "parser.tab.h"
 
 typedef union {
     int num;           // For numeric values
