@@ -1,10 +1,9 @@
-parser: src/lexer.l src/parser.y
-	bison -d src/parser.y
-	lex src/lexer.l
-	gcc -o $@ parser.tab.c lex.yy.c -lfl
+all: parser
+
+parser: src/parser.y src/lexer.l
+	bison -d -Wcounterexamples src/parser.y -o src/parser.tab.c
+	flex -o src/lex.yy.c src/lexer.l
+	gcc -o parser src/parser.tab.c src/lex.yy.c -lfl
 
 clean:
-	rm -f parser
-	rm -f lex.yy.c
-	rm -f parser.tab.c
-	rm -f parser.tab.h
+	rm -f src/parser.tab.c src/parser.tab.h src/lex.yy.c parser
