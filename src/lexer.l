@@ -1,21 +1,13 @@
 %{
 #include "parser.tab.h"
-
-typedef union {
-    int num;           // For numeric values
-    char *str;         // For string values
-} YYSTYPE;
-
-YYSTYPE yylval;
-
 %}
 
-DIGIT       [0-9]
-LETTER      [a-zA-Z]
-IDENTIFIER  {LETTER}({LETTER}|{DIGIT}|[ ])*
-NUMBER      {DIGIT}+
-STRING      \"[^"]*\"
-WS          [ \t\r\n]+
+DIGIT               [0-9]
+LETTER              [a-zA-Z]
+IDENTIFIER          {LETTER}({LETTER}|{DIGIT}|[ ])*
+NUMBER              {DIGIT}+
+STRING              \"[^"]*\"
+WS                  [ \t\r\n]+
 
 %%
 
