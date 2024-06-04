@@ -16,15 +16,3 @@ class SymbolTable:
             self.table[key] = value
         else:
             raise RuntimeError(f'Key {key} does not exist.')
-        
-class FuncTable:
-
-    table = {}
-
-    @staticmethod
-    def set(key, value):
-        FuncTable.table[key] = value
-
-    @staticmethod
-    def get(key):
-        return FuncTable.table.get(key)
