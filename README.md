@@ -1,4 +1,4 @@
-# Zombie Startup Compiler
+# Zombie Startup Interpreter
 
 At the time of writing this, I had a total of one year's professional experience as an intern. I had already seen three layoffs and one company completely shut down its operations in Brazil. These are crazy times for tech dudes.
 
