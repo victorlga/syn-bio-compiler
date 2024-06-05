@@ -23,11 +23,6 @@ class Tokenizer:
             'shows'             : 'SHOWS',
             'while'             : 'WHILE',
             'if'                : 'IF',
-            'hires'             : 'HIRES',
-            'layoffs'           : 'LAYOFFS',
-            'asks'              : 'ASKS',
-            'raise'             : 'RAISE',
-            'dies'              : 'DIES',
             'or'                : 'OR',
             'and'               : 'AND',
             'not'               : 'NOT',
@@ -51,6 +46,7 @@ class Tokenizer:
             'salary'            : 'SALARY',
             'company'           : 'COMPANY',
             'role'              : 'ROLE',
+            'different'         : 'DIFFERENT',
         }
 
     def select_next(self):

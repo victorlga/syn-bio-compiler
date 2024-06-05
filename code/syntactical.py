@@ -2,9 +2,8 @@ from .tokenizer import Tokenizer
 from .preprocessing import filter
 from .nodes import (
     BinOpNode, IntValNode, UnOpNode, PrintNode, AssigmentNode, BlockNode,
-    IdentifierNode, NoOpNode, IfNode, WhileNode, StringNode, WorkerDecNode,
-    StartupDecNode, VentureFirmDecNode, DiesNode, LayoffNode, HireNode,
-    AskNode, ParameterNode
+    IdentifierNode, NoOpNode, IfNode, WhileNode, StringNode, StartupDecNode,
+    VentureFirmDecNode, WorkerDecNode, ParameterNode
 )
 
 class Parser:
@@ -79,42 +78,8 @@ class Parser:
 
                 return print_node
 
-            elif self.tokenizer.next.type == 'DIES':
-                dies_node = DiesNode()
-                dies_node.children.append(identifier_node)
-                self.tokenizer.select_next()
-                return dies_node
-
-            elif self.tokenizer.next.type == 'LAYOFFS':
-                layoff_node = LayoffNode()
-                layoff_node.children.append(identifier_node)
-                self.tokenizer.select_next()
-                return layoff_node
-
-            elif self.tokenizer.next.type == 'HIRES':
-                hire_node = HireNode()
-                hire_node.children.append(identifier_node)
-                self._select_and_check_unexpected_token(True, 'IDENTIFIER')
-                identifier_node = IdentifierNode(self.tokenizer.next.value)
-                hire_node.children.append(identifier_node)
-                self.tokenizer.select_next()
-                return hire_node
-
-            elif self.tokenizer.next.type == 'ASKS':
-                ask_node = AskNode()
-                ask_node.children.append(identifier_node)
-                self._select_and_check_unexpected_token(True, 'IDENTIFIER')
-                identifier_node = IdentifierNode(self.tokenizer.next.value)
-                ask_node.children.append(identifier_node)
-                self._select_and_check_unexpected_token(True, 'TO')
-                self._select_and_check_unexpected_token(True, 'RAISE')
-                self.tokenizer.select_next()
-                bool_expression = self._parse_bool_expression()
-                ask_node.children.append(bool_expression)
-                return ask_node
-
             elif self._is_parameter(self.tokenizer.next.type):
-                parameter_node = ParameterNode(self.tokenizer.next.value)
+                parameter_node = ParameterNode(self.tokenizer.next.type)
                 self._select_and_check_unexpected_token(True, 'IS')
                 parameter_node.children.append(identifier_node)
                 assigment_node = AssigmentNode()
@@ -178,8 +143,10 @@ class Parser:
         token = self.tokenizer.next
 
         while token.type in binop_types:
-            if token.type in {'LESS', 'GREATER', 'EQUAL'}:
-                self.tokenizer.select_next()
+            if token.type in {'LESS', 'GREATER'}:
+                self._select_and_check_unexpected_token(True, 'THAN')
+            if token.type in {'EQUAL', 'DIFFERENT'}:
+                self._select_and_check_unexpected_token(True, 'TO')
 
             binop = BinOpNode(token.type)
             binop.children.append(result)
@@ -200,7 +167,7 @@ class Parser:
         return self._binop_parse_template(self._parse_relational_expression, {'AND'})
 
     def _parse_relational_expression(self):
-        return self._binop_parse_template(self._parse_expression, {'LESS', 'GREATER', 'EQUAL'})
+        return self._binop_parse_template(self._parse_expression, {'LESS', 'GREATER', 'EQUAL', 'DIFFERENT'})
 
     def _parse_expression(self):
         return self._binop_parse_template(self._parse_term, {'PLUS', 'MINUS'})
@@ -216,7 +183,7 @@ class Parser:
             identifier_node = IdentifierNode(token.value)
             self.tokenizer.select_next()
             if self._is_parameter(self.tokenizer.next.type):
-                parameter_node = ParameterNode(self.tokenizer.next.value)
+                parameter_node = ParameterNode(self.tokenizer.next.type)
                 parameter_node.children.append(identifier_node)
                 self.tokenizer.select_next()
                 return parameter_node
@@ -242,7 +209,7 @@ class Parser:
 
     def _is_parameter(self, token_type):
         return token_type in {
-            "CASH" , "REVENUE" , "EXPENSES" , "PRODUCT",
+            "CASH", "REVENUE", "EXPENSES", "PRODUCT",
             "TEAM", "FUND", "PORTFOLIO_SIZE", "STRATEGY",
             "SALARY", "COMPANY", "ROLE"
         }
