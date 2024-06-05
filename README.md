@@ -89,3 +89,31 @@ blob shows "I have to shut down the company, daddy".
 if blob team greater than 0, blob team is 0, blob cash is 0, blob product is "Nothing usefull",
 blob revenue is 0, blob expenses is 0, daddy shows "What? I have never invested in blob. He is crazy for posting that on X".
 ```
+
+## Output
+
+```txt
+blob : Let's grow without caring about revenue, burn it all!
+blob : Let's grow without caring about revenue, burn it all!
+blob : Let's grow without caring about revenue, burn it all!
+daddy : I need to invest in more companies!
+blob : Please, daddy, I need more money to survive!
+daddy : Hire some overpaid FAANG workers first!
+enzo : I have joined blob company! Let's update Linkedin to 'Building' and 'Ex-FAANG'
+blob : I have hired some FAANG workers, daddy!
+daddy : Good job, blob! Now you can have more money!
+daddy : Now buy some .ai domain and post on ProductHunt! That's what makes great companies
+blob : 1020000
+daddy : Blob is going to die, hire more FAANG workers!!!
+blob : I can't, daddy, it is not cool to hire post 2021
+daddy : Blob is going to die, hire more FAANG workers!!!
+blob : I can't, daddy, it is not cool to hire post 2021
+blob : I have to shut down the company, daddy
+daddy : What? I have never invested in blob. He is crazy for posting that on X
+```
+
+## How to Run
+To run the code, you need to have Python 3 installed on your machine. Then, you can run the following command on directory root:
+```bash
+python3 main.py test.zs
+```
