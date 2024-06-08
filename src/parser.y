@@ -14,11 +14,9 @@ int yylex(void);
 %token <str> STRING
 
 %token CREATE WITH_NAME IT_HAS OF COMMA DOT OR AND PLUS MINUS STAR SLASH LPAREN RPAREN
-%token IF WHILE IS NOT LESS_THAN GREATER_THAN EQUAL_TO
-%token NUMBER_TYPE TEXT_TYPE BELIEF_TYPE
-%token SALARY COMPANY ROLE FUND PORTFOLIO_SIZE INVESTMENT_STRATEGY CASH
-%token MONTHLY_REVENUE MONTHLY_EXPENSES PRODUCT STARTUP VENTURE_FIRM WORKER
-%token HIRES LAYOFFS ASKS TO_RAISE THROWS_MONEY DIES INCREASES DECREASES
+%token IF WHILE NOT LESS_THAN GREATER_THAN EQUAL_TO
+%token SALARY COMPANY ROLE FUND PORTFOLIO_SIZE STRATEGY CASH
+%token REVENUE EXPENSES PRODUCT STARTUP VENTURE_FIRM WORKER
 %token SHOWS IDENTIFIER
 
 %%
@@ -38,25 +36,15 @@ statement:
     | print_statement
     | while_statement
     | if_statement
-    | function_call
     ;
 
 var_declaration:
-    CREATE entity WITH_NAME IDENTIFIER it_has_clauses
-    ;
-
-it_has_clauses:
-    it_has_clause it_has_clauses
-    | /* empty */
-    ;
-
-it_has_clause:
-    COMMA IT_HAS type OF bool_expression
+    CREATE entity WITH_NAME IDENTIFIER
     ;
 
 assignment:
-    IDENTIFIER parameter IS bool_expression
-    | IDENTIFIER IS bool_expression
+    IDENTIFIER parameter bool_expression
+    | IDENTIFIER bool_expression
     ;
 
 print_statement:
@@ -72,20 +60,6 @@ if_statement:
     IF bool_expression COMMA statements
     ;
 
-function_call:
-    IDENTIFIER function_params
-    ;
-
-function_params:
-    HIRES IDENTIFIER
-    | LAYOFFS
-    | ASKS IDENTIFIER TO_RAISE NUMBER COMMA IDENTIFIER NOT THROWS_MONEY
-    | ASKS IDENTIFIER TO_RAISE NUMBER COMMA IDENTIFIER THROWS_MONEY
-    | DIES
-    | parameter INCREASES bool_expression
-    | parameter DECREASES bool_expression
-    ;
-
 bool_expression:
     bool_term
     | bool_term OR bool_expression
@@ -98,8 +72,7 @@ bool_term:
 
 relational_expression:
     expression
-    | expression IS NOT relational_operator expression
-    | expression IS relational_operator expression
+    | expression relational_operator expression
     ;
 
 relational_operator:
@@ -132,7 +105,7 @@ factor:
     ;
 
 entity:
-    STARTUP | VENTURE_FIRM | WORKER | IDENTIFIER
+    STARTUP | VENTURE_FIRM | WORKER
     ;
 
 parameter:
@@ -144,14 +117,14 @@ parameter:
 
 startup_parameter:
     CASH
-    | MONTHLY_REVENUE
-    | MONTHLY_EXPENSES
+    | REVENUE
+    | EXPENSES
     | PRODUCT
     ;
 
 venture_parameter:
     PORTFOLIO_SIZE
-    | INVESTMENT_STRATEGY
+    | STRATEGY
     | FUND
     ;
 
@@ -159,12 +132,6 @@ worker_parameter:
     SALARY
     | COMPANY
     | ROLE
-    ;
-
-type:
-    NUMBER_TYPE
-    | TEXT_TYPE
-    | BELIEF_TYPE
     ;
 
 %%
