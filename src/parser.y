@@ -112,7 +112,6 @@ parameter:
     startup_parameter
     | venture_parameter
     | worker_parameter
-    | IDENTIFIER
     ;
 
 startup_parameter:
