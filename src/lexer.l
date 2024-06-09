@@ -7,24 +7,29 @@ LETTER              [a-zA-Z]
 IDENTIFIER          {LETTER}({LETTER}|{DIGIT}|[ ])*
 NUMBER              {DIGIT}+
 STRING              \"[^"]*\"
-WS                  [ \t\r\n]+
 
 %%
 
-{WS}                    { /* Ignore whitespace */ }
-"portfolio size"        { return PORTFOLIO_SIZE; }
-"with name"             { return WITH_NAME; }
+[ \t]+                  ;
+[ \n]+                  ;
+[ \r]+                  ;
+"portfolio"             { return PORTFOLIO; }
+"size"                  { return SIZE; }
+"with"                  { return WITH; }
+"name"                  { return NAME; }
 "strategy"              { return STRATEGY; }
 "greater"               { return GREATER; }
 "less"                  { return LESS; }
 "than"                  { return THAN; }
 "equal"                 { return EQUAL; }
-"to"                    { return TO; } 
+"to"                    { return TO; }
 "different"             { return DIFFERENT; }
 "revenue"               { return REVENUE; }
 "expenses"              { return EXPENSES; }
-"venture firm"          { return VENTURE_FIRM; }
-"it has"                { return IT_HAS; }
+"venture"               { return VENTURE; }
+"firm"                  { return FIRM; }
+"it"                    { return IT; }
+"has"                   { return HAS; }
 "create"                { return CREATE; }
 "if"                    { return IF; }
 "while"                 { return WHILE; }
@@ -51,12 +56,8 @@ WS                  [ \t\r\n]+
 "/"                     { return SLASH; }
 "("                     { return LPAREN; }
 ")"                     { return RPAREN; }
-{STRING}                { yylval.str = strdup(yytext); return STRING; }
-{NUMBER}                { yylval.num = atoi(yytext); return NUMBER; }
-{IDENTIFIER}            { yylval.str = strdup(yytext); return IDENTIFIER; }
+{NUMBER}                { return NUMBER; }
+{STRING}                { return STRING; }
+{IDENTIFIER}            { return IDENTIFIER; }
 
 %%
-
-int yywrap() {
-    return 1;
-}

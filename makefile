@@ -1,7 +1,7 @@
 all: parser
 
 parser: src/parser.y src/lexer.l
-	bison -d -Wcounterexamples src/parser.y -o src/parser.tab.c
+	bison -d src/parser.y -o src/parser.tab.c
 	flex -o src/lex.yy.c src/lexer.l
 	gcc -o parser src/parser.tab.c src/lex.yy.c -lfl
 
