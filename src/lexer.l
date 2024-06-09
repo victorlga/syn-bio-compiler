@@ -4,15 +4,12 @@
 
 DIGIT               [0-9]
 LETTER              [a-zA-Z]
-IDENTIFIER          {LETTER}({LETTER}|{DIGIT}|[ ])*
+IDENTIFIER          {LETTER}({LETTER}|{DIGIT})*
 NUMBER              {DIGIT}+
 STRING              \"[^"]*\"
 
 %%
 
-[ \t]+                  ;
-[ \n]+                  ;
-[ \r]+                  ;
 "portfolio"             { return PORTFOLIO; }
 "size"                  { return SIZE; }
 "with"                  { return WITH; }
@@ -59,5 +56,7 @@ STRING              \"[^"]*\"
 {NUMBER}                { return NUMBER; }
 {STRING}                { return STRING; }
 {IDENTIFIER}            { return IDENTIFIER; }
+[ \t\r\n]+              { /* Ignore whitespace and new lines */ }
+.                       { /* Ignore any other single character */ }
 
 %%

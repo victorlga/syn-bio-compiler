@@ -23,18 +23,13 @@ int yylex(void);
 
 %%
 
-program:
+block:
     statements
     ;
 
 statements:
-    statement PERIOD statements
-    | /* empty */
-    ;
-
-comma_statements:
-    statement COMMA comma_statements
-    | statement PERIOD
+    statement PERIOD
+    | statement PERIOD statements
     | /* empty */
     ;
 
@@ -59,11 +54,17 @@ print_statement:
     ;
 
 while_statement:
-    WHILE bool_expression COMMA comma_statements
+    WHILE bool_expression COMMA nested_statements
     ;
 
 if_statement:
-    IF bool_expression COMMA comma_statements
+    IF bool_expression COMMA nested_statements
+    ;
+
+nested_statements:
+    statement
+    | statement COMMA nested_statements
+    | /* empty */
     ;
 
 bool_expression:
