@@ -15,9 +15,12 @@ WS                  [ \t\r\n]+
 "portfolio size"        { return PORTFOLIO_SIZE; }
 "with name"             { return WITH_NAME; }
 "strategy"              { return STRATEGY; }
-"greater than"          { return GREATER_THAN; }
-"less than"             { return LESS_THAN; }
-"equal to"              { return EQUAL_TO; }
+"greater"               { return GREATER; }
+"less"                  { return LESS; }
+"than"                  { return THAN; }
+"equal"                 { return EQUAL; }
+"to"                    { return TO; } 
+"different"             { return DIFFERENT; }
 "revenue"               { return REVENUE; }
 "expenses"              { return EXPENSES; }
 "venture firm"          { return VENTURE_FIRM; }
@@ -26,8 +29,10 @@ WS                  [ \t\r\n]+
 "if"                    { return IF; }
 "while"                 { return WHILE; }
 "not"                   { return NOT; }
+"is"                    { return IS; }
 "salary"                { return SALARY; }
 "company"               { return COMPANY; }
+"team"                  { return TEAM; }
 "role"                  { return ROLE; }
 "fund"                  { return FUND; }
 "cash"                  { return CASH; }
@@ -37,7 +42,7 @@ WS                  [ \t\r\n]+
 "of"                    { return OF; }
 "shows"                 { return SHOWS; }
 ","                     { return COMMA; }
-"."                     { return DOT; }
+"."                     { return PERIOD; }
 "or"                    { return OR; }
 "and"                   { return AND; }
 "+"                     { return PLUS; }

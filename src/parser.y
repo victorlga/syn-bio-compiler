@@ -1,6 +1,8 @@
 %{
 #include <stdio.h>
 
+extern FILE *yyin;
+
 void yyerror(const char *s);
 int yylex(void);
 %}
@@ -13,11 +15,11 @@ int yylex(void);
 %token <num> NUMBER
 %token <str> STRING
 
-%token CREATE WITH_NAME IT_HAS OF COMMA DOT OR AND PLUS MINUS STAR SLASH LPAREN RPAREN
-%token IF WHILE NOT LESS_THAN GREATER_THAN EQUAL_TO
+%token CREATE WITH_NAME IT_HAS OF COMMA PERIOD OR AND PLUS MINUS STAR SLASH LPAREN RPAREN
+%token IF WHILE NOT LESS THAN GREATER EQUAL TO IS
 %token SALARY COMPANY ROLE FUND PORTFOLIO_SIZE STRATEGY CASH
 %token REVENUE EXPENSES PRODUCT STARTUP VENTURE_FIRM WORKER
-%token SHOWS IDENTIFIER
+%token SHOWS IDENTIFIER DIFFERENT TEAM
 
 %%
 
@@ -26,7 +28,13 @@ program:
     ;
 
 statements:
-    statement DOT statements
+    statement PERIOD statements
+    | /* empty */
+    ;
+
+comma_statements:
+    statement COMMA comma_statements
+    | statement PERIOD
     | /* empty */
     ;
 
@@ -43,21 +51,19 @@ var_declaration:
     ;
 
 assignment:
-    IDENTIFIER parameter bool_expression
-    | IDENTIFIER bool_expression
+    IDENTIFIER parameter IS bool_expression
     ;
 
 print_statement:
     IDENTIFIER SHOWS bool_expression
-    | IDENTIFIER SHOWS parameter
     ;
 
 while_statement:
-    WHILE bool_expression COMMA statements
+    WHILE bool_expression COMMA comma_statements
     ;
 
 if_statement:
-    IF bool_expression COMMA statements
+    IF bool_expression COMMA comma_statements
     ;
 
 bool_expression:
@@ -76,9 +82,10 @@ relational_expression:
     ;
 
 relational_operator:
-    LESS_THAN
-    | GREATER_THAN
-    | EQUAL_TO
+    LESS THAN
+    | GREATER THAN
+    | EQUAL TO
+    | DIFFERENT TO
     ;
 
 expression:
@@ -89,16 +96,15 @@ expression:
 
 term:
     factor
-    | factor '*' term
-    | factor '/' term
+    | factor STAR term
+    | factor SLASH term
     ;
 
 factor:
     NUMBER
     | STRING
     | IDENTIFIER parameter
-    | IDENTIFIER
-    | '(' expression ')'
+    | LPAREN expression RPAREN
     | NOT factor
     | PLUS factor
     | MINUS factor
@@ -119,6 +125,7 @@ startup_parameter:
     | REVENUE
     | EXPENSES
     | PRODUCT
+    | TEAM
     ;
 
 venture_parameter:
@@ -135,15 +142,23 @@ worker_parameter:
 
 %%
 
-void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Expected args: %s <input_file>\n", argv[0]);
+        return 1;
+    }
+    FILE *input_file = fopen(argv[1], "r");
+    if (!input_file) {
+        fprintf(stderr, "Error: could not open file %s\n", argv[1]);
+        return 1;
+    }
+    yyin = input_file;
+    yyparse();
+
+    fclose(input_file);
+    return 0;
 }
 
-int main(void) {
-    if (yyparse() == 0) {
-        printf("Parsing complete!\n");
-    } else {
-        printf("Parsing failed.\n");
-    }
-    return 0;
+void yyerror(const char *s) {
+    fprintf(stderr, "error: %s\n", s);
 }
